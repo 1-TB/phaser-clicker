@@ -5,7 +5,7 @@ If you want to play it localy use [Node.js](https://nodejs.org/) v4+ to run.
 
 ```sh
 $ git clone https://github.com/OverallGod/phaser-clicker.git CoinSlayer
-$ cd coinslayer
+$ cd CoinSlayer
 $ npm install
 $ node http-server
 ```
@@ -18,8 +18,9 @@ I can use all the help I can get becuase im still new to javascript and phaser!
 
 ### Todos
 
- - Write MORE Tests
- - Add Night Mode
+ - Add animations
+ - Add more content
+ - Fix monsters are different sizes
 
 License
 ----

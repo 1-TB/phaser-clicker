@@ -28,6 +28,7 @@ game.state.add('play', {
         this.game.load.image('gold_coin', 'assets/496_RPG_icons/I_GoldCoin.png');
 
         this.game.load.image('cannon', 'assets/496_RPG_icons/I_Cannon01.png');
+        this.game.load.image('lemon', 'assets/496_RPG_icons/I_C_Lemon.png');
         this.game.load.image('dagger', 'assets/496_RPG_icons/W_Dagger002.png');
         this.game.load.image('swordIcon1', 'assets/496_RPG_icons/S_Sword15.png');
 
@@ -91,6 +92,9 @@ game.state.add('play', {
             }},
              {icon: 'cannon', name: 'Auto Cannon', level: 0, cost: 500, purchaseHandler: function(button, player) {
                 player.dps += 30;
+            }},
+                {icon: 'lemon', name: 'Powerful Lemon', level: 0, cost: 1000, purchaseHandler: function(button, player) {
+                player.dps += 70;
             }}
         ];
 
