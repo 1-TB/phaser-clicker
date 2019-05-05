@@ -2,7 +2,7 @@
   "name": "CoinSlayer",
   "version": "0.0.0",
   "description": "## Installation If you want to play it localy use [Node.js](https://nodejs.org/) v4+ to run.",
-  "main": "index.js",
+  "main": "http-server",
   "dependencies": {
     "common-style": "^3.1.0",
     "corser": "^2.0.1",
