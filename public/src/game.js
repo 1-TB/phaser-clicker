@@ -57,15 +57,27 @@ game.state.add('play', {
             gold: 50,
             dps: 0
         };
-
-        this.player.gold = this.localStorageGet("gold");
+        if (this.localStorageGet("gold") > 0){
+            this.player.gold = this.localStorageGet("gold");
+        }
+        
+        
 
         
 
         // world progression
         this.level = 1;
+        //loading levels
+        if (this.localStorageGet("level") > 0){
+            this.level = this.localStorageGet("level"); 
+        }
+
         // how many monsters have we killed during this level
         this.levelKills = 0;
+        //loading kills
+        if (this.levelkills > 0){
+            this.levelKills = this.localStorageGet("kills");
+        }
         // how many monsters are required to advance a level
         this.levelKillsRequired = 10;
     },
@@ -116,8 +128,10 @@ game.state.add('play', {
             'save',
             function openWindow() {
                 
-                alert('Your gold was saved! '+ this.player.gold);
+                alert('gold: '+ this.player.gold + " level: " + this.level + " Level Kills: "+ this.levelKills);
                 this.localStorageSet("gold",this.player.gold);
+                this.localStorageSet("level",this.level);
+                this.localStorageSet("kills",this.levelKills);
                 //idka
         
             },
