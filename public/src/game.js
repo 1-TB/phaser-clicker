@@ -1,5 +1,6 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '');
 
+
 game.state.add('play', {
     preload: function() {
         this.game.load.image('forest-green', 'assets/pixelforest.png');
@@ -26,6 +27,7 @@ game.state.add('play', {
         this.game.load.image('stygian_lizard', 'assets/allacrost_enemy_sprites/stygian_lizard.png');
 
         this.game.load.image('gold_coin', 'assets/496_RPG_icons/I_GoldCoin.png');
+        this.game.load.image('save', 'assets/save.png');
 
         this.game.load.image('cannon', 'assets/496_RPG_icons/I_Cannon01.png');
         this.game.load.image('lemon', 'assets/496_RPG_icons/I_C_Lemon.png');
@@ -56,6 +58,10 @@ game.state.add('play', {
             dps: 0
         };
 
+        this.player.gold = this.localStorageGet("gold");
+
+        
+
         // world progression
         this.level = 1;
         // how many monsters have we killed during this level
@@ -65,7 +71,7 @@ game.state.add('play', {
     },
     create: function() {
         var state = this;
-
+        
         this.background = this.game.add.group();
         // setup each of our background layers to take the full screen
         ['forest-green']
@@ -75,10 +81,12 @@ game.state.add('play', {
                     state.game.world.height, image, '', state.background);
                 bg.tileScale.setTo(4,4);
             });
+        
 
         this.upgradePanel = this.game.add.image(10, 70, this.game.cache.getBitmapData('upgradePanel'));
         var upgradeButtons = this.upgradePanel.addChild(this.game.add.group());
         upgradeButtons.position.setTo(8, 8);
+        
 
         var upgradeButtonsData = [
             {icon: 'dagger', name: 'Attack', level: 0, cost: 5, purchaseHandler: function(button, player) {
@@ -99,6 +107,29 @@ game.state.add('play', {
         ];
 
         var button;
+        
+        //save button
+
+        var button = game.add.button(
+            350,
+            25,
+            'save',
+            function openWindow() {
+                
+                alert('Your gold was saved! '+ this.player.gold);
+                this.localStorageSet("gold",this.player.gold);
+                //idka
+        
+            },
+            this,
+            0,
+            1,
+            2,
+            3);
+        button.anchor.x = .5;
+        button.anchor.y = .5;
+        button.input.useHandCursor = true;
+
         upgradeButtonsData.forEach(function(buttonData, index) {
             button = state.game.add.button(0, (50 * index), state.game.cache.getBitmapData('button'));
             button.icon = button.addChild(state.game.add.image(6, 6, buttonData.icon));
@@ -250,16 +281,35 @@ game.state.add('play', {
             return;
         }
         // give the player gold
+       
         this.player.gold += coin.goldValue;
         // update UI
         this.playerGoldText.text = 'Gold: ' + this.player.gold;
+        
         // remove the coin
         coin.kill();
+    },
+
+    localStorageSet: function(key,str){
+        
+            var local=0;
+            var local=window.localStorage.setItem(key,str);
+            console.log("item saved  "+ local);
+			return local;
+        
+    },
+    localStorageGet: function(key){
+            
+        var local=0;
+        try {local=window.localStorage.getItem(key);} catch (exception) {}
+        console.log("item was grabbed" + local)
+        return local;
+            
     },
     onKilledMonster: function(monster) {
         // move the monster off screen again
         monster.position.set(1000, this.game.world.centerY);
-
+        
         var coin;
         // spawn a coin on the ground
         coin = this.coins.getFirstExists(false);
@@ -307,5 +357,6 @@ game.state.add('play', {
         this.monsterHealthText.text = this.currentMonster.alive ? this.currentMonster.health + ' HP' : 'DEAD';
     }
 });
+
 
 game.state.start('play');

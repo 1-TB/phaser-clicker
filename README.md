@@ -21,6 +21,7 @@ I can use all the help I can get becuase im still new to javascript and phaser!
  - Add animations
  - Add more content
  - Fix monsters are different sizes
+ - Save more than Just gold
 
 License
 ----
