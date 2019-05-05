@@ -1,1 +1,1 @@
-web: node http-server --port 80
+web: node http-server --port 8080
