@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '');
+var game = new Phaser.Game(1350, 650, Phaser.AUTO, '');
 
 
 game.state.add('play', {
@@ -33,6 +33,8 @@ game.state.add('play', {
         this.game.load.image('lemon', 'assets/496_RPG_icons/I_C_Lemon.png');
         this.game.load.image('dagger', 'assets/496_RPG_icons/W_Dagger002.png');
         this.game.load.image('swordIcon1', 'assets/496_RPG_icons/S_Sword15.png');
+        this.game.load.audio('backgroundmusic', 'assets/music.mp3');
+        
 
         // build panel for upgrades
         var bmd = this.game.add.bitmapData(250, 500);
@@ -93,7 +95,8 @@ game.state.add('play', {
                     state.game.world.height, image, '', state.background);
                 bg.tileScale.setTo(4,4);
             });
-        
+        music = game.add.audio('backgroundmusic');
+        music.play();
 
         this.upgradePanel = this.game.add.image(10, 70, this.game.cache.getBitmapData('upgradePanel'));
         var upgradeButtons = this.upgradePanel.addChild(this.game.add.group());
@@ -117,8 +120,6 @@ game.state.add('play', {
                 player.dps += 70;
             }}
         ];
-
-        var button;
         
         //save button
 
@@ -178,7 +179,7 @@ game.state.add('play', {
         var monster;
         monsterData.forEach(function(data) {
             // create a sprite for them off screen
-            monster = state.monsters.create(1000, state.game.world.centerY, data.image);
+            monster = state.monsters.create(3000, state.game.world.centerY, data.image);
             // use the built in health component
             monster.health = monster.maxHealth = data.maxHealth;
             // center anchor
@@ -200,7 +201,7 @@ game.state.add('play', {
         this.currentMonster.position.set(this.game.world.centerX + 100, this.game.world.centerY + 50);
 
         this.monsterInfoUI = this.game.add.group();
-        this.monsterInfoUI.position.setTo(this.currentMonster.x - 220, this.currentMonster.y + 120);
+        this.monsterInfoUI.position.setTo(500 , 500);
         this.monsterNameText = this.monsterInfoUI.addChild(this.game.add.text(0, 0, this.currentMonster.details.name, {
             font: '48px Arial Black',
             fill: '#fff',
@@ -239,7 +240,7 @@ game.state.add('play', {
         this.coins = this.add.group();
         this.coins.createMultiple(50, 'gold_coin', '', false);
         this.coins.setAll('inputEnabled', true);
-        this.coins.setAll('goldValue', 1);
+        this.coins.setAll('goldValue', 2);
         this.coins.callAll('events.onInputDown.add', 'events.onInputDown', this.onClickCoin, this);
 
         this.playerGoldText = this.add.text(30, 30, 'Gold: ' + this.player.gold, {
