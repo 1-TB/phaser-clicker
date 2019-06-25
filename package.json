@@ -6,7 +6,7 @@
   "dependencies": {
     "common-style": "^3.1.0",
     "corser": "^2.0.1",
-    "ecstatic": "^3.3.1",
+    "ecstatic": "^3.3.2",
     "http-proxy": "^1.17.0",
     "opener": "^1.5.1",
     "optimist": "^0.6.1",
