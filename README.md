@@ -1,15 +1,7 @@
 # CoinSlayer
 
 ## Installation
-If you want to play it localy use [Node.js](https://nodejs.org/) v4+ to run.
-
-```sh
-$ git clone https://github.com/OverallGod/phaser-clicker.git CoinSlayer
-$ cd CoinSlayer
-$ npm install
-$ node http-server
-```
-Then head on over to http://localhost:8080
+If you want to play it localy use you will need to host it on a webserver, for example xampp
 
 ### Development
 
